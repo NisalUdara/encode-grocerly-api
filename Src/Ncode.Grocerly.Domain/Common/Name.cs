@@ -36,8 +36,8 @@ namespace Ncode.Grocerly.Domain.Common
 
         public override bool Equals(object obj)
         {
-            var isEqual =   obj is Name && 
-                            Text.ToLower().Equals(((Name)obj).Text.ToLower());
+            var isEqual = obj is Name name &&
+                          Text.ToLower().Equals(name.Text.ToLower());
 
             return isEqual;
         }
