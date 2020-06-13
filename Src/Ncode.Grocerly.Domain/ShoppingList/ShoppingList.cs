@@ -8,20 +8,35 @@ namespace Ncode.Grocerly.Domain
 {
     public class ShoppingList
     {
-        public ShoppingList(Name name, DateTime createDatetime)
+        public ShoppingList(int ownerId, Name name, DateTime createDatetime)
         {
+            OwnerId = ownerId;
             Name = name;
             Items = new List<ShoppingListItem>();
             CreatedDateTime = createDatetime;
         }
 
+        public ShoppingList(int ownerId, ShoppingList shoppingList, DateTime createDatetime)
+            :this(ownerId, shoppingList.Name, createDatetime)
+        {
+            var unPickedItems = shoppingList.Items
+                .Where(item => !item.IsPicked).ToList();
+
+            foreach (var item in unPickedItems)
+            {
+                shoppingList.Items.Remove(item);
+            }
+        }
+
+        public int OwnerId { get; private set; }
+
         public Name Name { get; private set; }
 
         public bool IsCompleted { get; private set; }
 
-        public DateTime CreatedDateTime { get; set; }
+        public DateTime CreatedDateTime { get; private set; }
 
-        public DateTime FinishedDateTime { get; set; }
+        public DateTime FinishedDateTime { get; private set; }
 
         public bool IsEmpty
         {

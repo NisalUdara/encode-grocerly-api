@@ -5,20 +5,19 @@ using System.Text;
 
 namespace Ncode.Grocerly.Domain
 {
-    public class Consumer: Identity
+    public class Shopper: Identity
     {
-        public Consumer()
+        public Shopper()
         {
             SharedShoppingListsByConsumer = new List<Share>();
         }
-        public Name Name { get; set; }
-        public int WishListId { get; set; }
-        public List<int> ShoppingListIds { get;internal set; }
+        public string Username { get; set; }
+        public int WishList { get; set; }
+        public List<int> ShoppingLists { get;internal set; }
         public List<Share> SharedShoppingListsByConsumer { get; internal set; }
-
-        public void Share(int consumerId, int shoppingListId)
+        public void Share(int shopperId, int shoppingListId)
         {
-            var share = new Share(consumerId, shoppingListId);
+            var share = new Share(shopperId, shoppingListId);
             SharedShoppingListsByConsumer.Add(share);
         }
     }

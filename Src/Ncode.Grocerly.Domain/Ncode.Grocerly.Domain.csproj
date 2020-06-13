@@ -5,7 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ShoppingList\Event\" />
+    <Compile Remove="ShoppingList\Event\**" />
+    <EmbeddedResource Remove="ShoppingList\Event\**" />
+    <None Remove="ShoppingList\Event\**" />
   </ItemGroup>
 
 </Project>

@@ -6,9 +6,9 @@ namespace Ncode.Grocerly.Domain
 {
     public class Share
     {
-        public Share(long consumerId, long shoppingListId)
+        public Share(long shopperId, long shoppingListId)
         {
-            if (consumerId < 1 )
+            if (shopperId < 1 )
             {
                 throw new ArgumentException("Consumer id needs to be valid.");
             }
@@ -17,10 +17,10 @@ namespace Ncode.Grocerly.Domain
                 throw new ArgumentException("Shopping list id needs to be valid.");
             }
 
-            ConsumerId = consumerId;
+            ShopperId = shopperId;
             ShoppingListId = shoppingListId;
         }
-        public long ConsumerId { get; private set; }
+        public long ShopperId { get; private set; }
         public long ShoppingListId { get; private set; }
     }
 }
