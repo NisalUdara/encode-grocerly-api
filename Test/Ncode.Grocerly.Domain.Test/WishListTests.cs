@@ -1,8 +1,6 @@
 ﻿using FluentAssertions;
 using Ncode.Grocerly.Domain.Common;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Ncode.Grocerly.Domain.Test
@@ -10,7 +8,7 @@ namespace Ncode.Grocerly.Domain.Test
     public class WishListTests
     {
         [Fact]
-        public void TestName()
+        public void TestWishList()
         {
             int testOwnerId = 1;
             var wishList = new WishList(testOwnerId);

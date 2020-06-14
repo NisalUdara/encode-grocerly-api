@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xunit;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Ncode.Grocerly.Domain.Common;
+using System;
+using Xunit;
 
 namespace Ncode.Grocerly.Domain.Test
 {
@@ -17,7 +15,8 @@ namespace Ncode.Grocerly.Domain.Test
             assignEmpty.Should().Throw<ArgumentException>().WithMessage("Product name has to  be non empty.");
 
             name = (Name)"Milk";
-            name.Text.Should().Equals("Milk");
+            string setName = name;
+            setName.Should().Equals("Milk");
         }
     }
 }

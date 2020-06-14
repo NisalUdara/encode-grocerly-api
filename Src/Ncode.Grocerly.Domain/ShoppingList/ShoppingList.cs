@@ -50,7 +50,7 @@ namespace Ncode.Grocerly.Domain
         {
             get 
             {
-                return Items.Where(item => item.IsPicked).Count() == Items.Count() ;
+                return Items.Where(item => item.IsPicked).Count() == Items.Count() && !IsEmpty;
             }                
         }
 
@@ -58,10 +58,6 @@ namespace Ncode.Grocerly.Domain
 
         public void AddItem(Name name, UnitOfMeasure unitOfMeasure, int quantity)
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException("Product name has to  be non empty.");
-            }
             if (quantity < 1)
             {
                 throw new ArgumentException("Quantity has to be greater than zero.");
@@ -76,11 +72,6 @@ namespace Ncode.Grocerly.Domain
 
         public void RemoveItem(Name name)
         {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentException("Product name has to  be non empty.");
-            }
-
             var itemToRemove = Items.FirstOrDefault(item => item.Name.Equals(name));
             if (itemToRemove is null)
             {
