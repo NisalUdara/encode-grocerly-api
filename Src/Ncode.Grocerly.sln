@@ -5,11 +5,13 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ncode.Grocerly.Domain", "Ncode.Grocerly.Domain\Ncode.Grocerly.Domain.csproj", "{69817469-022B-49FA-84EC-F60A7EB5F07E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ncode.Grocerly.Domain.Test", "..\Test\Ncode.Grocerly.Domain.Test\Ncode.Grocerly.Domain.Test.csproj", "{43236598-EE38-48A6-88E2-23F5D60DF42A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ncode.Grocerly.Domain.Test", "..\Test\Ncode.Grocerly.Domain.Test\Ncode.Grocerly.Domain.Test.csproj", "{43236598-EE38-48A6-88E2-23F5D60DF42A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7BE395D9-F2F8-4F39-A183-BCE969647495}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ncode.Grocerly.Common", "Ncode.Grocerly.Common\Ncode.Grocerly.Common.csproj", "{883F4AD1-376C-4EBF-A0C3-8CE46E0E42E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ncode.Grocerly.Common", "Ncode.Grocerly.Common\Ncode.Grocerly.Common.csproj", "{883F4AD1-376C-4EBF-A0C3-8CE46E0E42E4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ncode.Grocerly.Application", "Ncode.Grocerly.Application\Ncode.Grocerly.Application.csproj", "{DFBB5398-6B1A-412E-8B15-36BB697C68BF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{883F4AD1-376C-4EBF-A0C3-8CE46E0E42E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{883F4AD1-376C-4EBF-A0C3-8CE46E0E42E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{883F4AD1-376C-4EBF-A0C3-8CE46E0E42E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFBB5398-6B1A-412E-8B15-36BB697C68BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFBB5398-6B1A-412E-8B15-36BB697C68BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFBB5398-6B1A-412E-8B15-36BB697C68BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFBB5398-6B1A-412E-8B15-36BB697C68BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
