@@ -7,7 +7,7 @@ namespace Ncode.Grocerly.Domain
 {
     public class Shopper: Identity
     {
-        public Shopper(long shopperId, string username)
+        public Shopper(long shopperId, string username, DateTime createdDateTime)
         {
             Id = shopperId;
             Username = username;
@@ -32,7 +32,7 @@ namespace Ncode.Grocerly.Domain
         public List<int> ShoppingLists { get; private set; }
         public List<Share> SharedShoppingLists { get; private set; }
 
-        public void Share(int shopperId, int shoppingListId)
+        public void Share(long shopperId, long shoppingListId)
         {
             var share = new Share(shopperId, shoppingListId);
             SharedShoppingLists.Add(share);

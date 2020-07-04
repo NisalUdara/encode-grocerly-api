@@ -1,23 +1,23 @@
 ﻿using Ncode.Grocerly.Application.Common;
-using System;
+using Ncode.Grocerly.Application.Repository;
+using Ncode.Grocerly.Domain;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Ncode.Grocerly.Application.Queries
 {
     public class GetShopperList : IQuery<string, IEnumerable<string>>
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepository<Shopper> _repository;
 
-        public GetShopperList(IUnitOfWork unitOfWork)
+        public GetShopperList(IRepository<Shopper> repository)
         {
-            _unitOfWork = unitOfWork;
+            _repository = repository;
         }
 
         public IEnumerable<string> Handle(string username)
         {
-            var usernames = _unitOfWork.Shoppers
+            var usernames = _repository
                 .Get(shopper => shopper.Username.Contains(username))
                 .Select(shopper => shopper.Username);
 

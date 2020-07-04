@@ -1,21 +1,23 @@
 ﻿using Ncode.Grocerly.Application.Common;
 using Ncode.Grocerly.Application.Exceptions;
 using Ncode.Grocerly.Domain.Common;
+using System;
 using System.Linq;
 
 namespace Ncode.Grocerly.Application.Commands
 {
-    public class AddWishListItem : ICommand<(string username, Name name, UnitOfMeasure unitOfMeasure, int quantity)>
+    public class RemoveWishListItem : ICommand<(string name, string username)>
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public AddWishListItem(IUnitOfWork unitOfWork)
+        public RemoveWishListItem(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        public void Handle((string username, Name name, UnitOfMeasure unitOfMeasure, int quantity) parameters)
+        public void Handle((string name, string username) parameters)
         {
+
             var shopper = _unitOfWork.Shoppers
                 .Get(shopper => shopper.Username.Equals(parameters.username))
                 .FirstOrDefault();
@@ -34,7 +36,7 @@ namespace Ncode.Grocerly.Application.Commands
                 throw new UnregisteredShopperException();
             }
 
-            wishList.AddItem(parameters.name, parameters.unitOfMeasure, parameters.quantity);
+            wishList.RemoveItem((Name)parameters.name);
             _unitOfWork.WishLists.Update(wishList);
             _unitOfWork.Save();
         }

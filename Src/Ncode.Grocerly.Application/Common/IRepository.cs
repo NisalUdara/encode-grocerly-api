@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 
-namespace Ncode.Grocerly.Application.Common
+namespace Ncode.Grocerly.Application.Repository
 {
     public interface IRepository<T> where T : Identity
     {
@@ -11,9 +11,9 @@ namespace Ncode.Grocerly.Application.Common
 
         void Update(T item);
 
-        void Delete(int id);
+        void Delete(long id);
 
-        T GetById(int id);
+        T GetById(long id);
 
         IEnumerable<T> GetAll();
 

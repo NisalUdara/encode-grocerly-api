@@ -8,7 +8,7 @@ namespace Ncode.Grocerly.Domain
 {
     public class ShoppingList : Identity
     {
-        public ShoppingList(int ownerId, Name name, DateTime createDatetime)
+        public ShoppingList(long ownerId, Name name, DateTime createDatetime)
         {
             OwnerId = ownerId;
             Name = name;
@@ -28,7 +28,7 @@ namespace Ncode.Grocerly.Domain
             }
         }
 
-        public int OwnerId { get; private set; }
+        public long OwnerId { get; private set; }
 
         public Name Name { get; private set; }
 

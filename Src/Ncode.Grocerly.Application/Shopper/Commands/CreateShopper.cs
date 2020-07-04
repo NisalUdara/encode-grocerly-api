@@ -15,10 +15,13 @@ namespace Ncode.Grocerly.Application.Commands
 
         private readonly IIdGenerator _idGenerator;
 
-        public CreateShopper(IUnitOfWork unitOfWork, IIdGenerator idGenerator)
+        private readonly IClock _clock;
+
+        public CreateShopper(IUnitOfWork unitOfWork, IIdGenerator idGenerator, IClock clock)
         {
             _unitOfWork = unitOfWork;
             _idGenerator = idGenerator;
+            _clock = clock;
         }
 
         public void Handle(string username)
@@ -30,7 +33,8 @@ namespace Ncode.Grocerly.Application.Commands
             }
 
             var id = _idGenerator.CreateId();
-            var newShopper = new Shopper(id, username);
+            var createdDateTime = _clock.UtcNow;
+            var newShopper = new Shopper(id, username, createdDateTime);
             _unitOfWork.Shoppers.Add(newShopper);
             _unitOfWork.Save();
         }

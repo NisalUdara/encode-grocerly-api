@@ -1,5 +1,6 @@
 ﻿using Ncode.Grocerly.Application.Common;
 using Ncode.Grocerly.Application.Exceptions;
+using Ncode.Grocerly.Application.Repository;
 using Ncode.Grocerly.Domain;
 using System.Linq;
 
@@ -7,16 +8,20 @@ namespace Ncode.Grocerly.Application.Queries
 {
     public class GetWishList: IQuery<string, WishList>
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IRepository<Shopper> _shopperRepository;
+        private readonly IRepository<WishList> _wishListrepository;
 
-        public GetWishList(IUnitOfWork unitOfWork)
+        public GetWishList(
+            IRepository<Shopper> shopperRepository,
+            IRepository<WishList> wishListrepository)
         {
-            _unitOfWork = unitOfWork;
+            _shopperRepository = shopperRepository;
+            _wishListrepository = wishListrepository;
         }
 
         public WishList Handle(string username)
         {
-            var shopper = _unitOfWork.Shoppers
+            var shopper = _shopperRepository
                 .Get(shopper => shopper.Username.Equals(username))
                 .FirstOrDefault();
 
@@ -25,7 +30,7 @@ namespace Ncode.Grocerly.Application.Queries
                 throw new UnregisteredShopperException();
             }
 
-            var wishList = _unitOfWork.WishLists
+            var wishList = _wishListrepository
                 .Get(wishList => wishList.OwnerId == shopper.Id)
                 .FirstOrDefault();
 

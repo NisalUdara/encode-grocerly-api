@@ -1,4 +1,5 @@
-﻿using Ncode.Grocerly.Domain;
+﻿using Ncode.Grocerly.Application.Repository;
+using Ncode.Grocerly.Domain;
 
 namespace Ncode.Grocerly.Application.Common
 {

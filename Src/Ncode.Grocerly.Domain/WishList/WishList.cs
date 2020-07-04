@@ -15,7 +15,7 @@ namespace Ncode.Grocerly.Domain
 
         public IList<WishListItem> Items { get; private set; }
 
-        public int OwnerId { get; private set; }
+        public long OwnerId { get; private set; }
 
         public void AddItem(Name name, UnitOfMeasure unitOfMeasure, int quantity)
         {

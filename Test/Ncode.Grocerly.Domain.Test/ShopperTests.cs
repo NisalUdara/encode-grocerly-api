@@ -16,7 +16,7 @@ namespace Ncode.Grocerly.Domain.Test
             int shopperWishlistId = 1;
             int errandShopperId = 2;
 
-            var shopper = new Shopper(shopperId, shopperUsername);
+            var shopper = new Shopper(shopperId, shopperUsername, DateTime.UtcNow);
             shopper.Id.Should().Equals(shopperId);
             shopper.Username.Should().Equals(shopperUsername);
             shopper.WishList.Should().Equals(shopperWishlistId);
