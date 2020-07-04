@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Ncode.Grocerly.Domain
 {
-    public class ShoppingList
+    public class ShoppingList : Identity
     {
         public ShoppingList(int ownerId, Name name, DateTime createDatetime)
         {
@@ -17,7 +17,7 @@ namespace Ncode.Grocerly.Domain
         }
 
         public ShoppingList(int ownerId, ShoppingList shoppingList, DateTime createDatetime)
-            :this(ownerId, shoppingList.Name, createDatetime)
+            : this(ownerId, shoppingList.Name, createDatetime)
         {
             var unPickedItems = shoppingList.Items
                 .Where(item => !item.IsPicked).ToList();
@@ -46,12 +46,12 @@ namespace Ncode.Grocerly.Domain
             }
         }
 
-        public bool HasAllItemsPicked 
+        public bool HasAllItemsPicked
         {
-            get 
+            get
             {
                 return Items.Where(item => item.IsPicked).Count() == Items.Count() && !IsEmpty;
-            }                
+            }
         }
 
         public IList<ShoppingListItem> Items { get; private set; }
