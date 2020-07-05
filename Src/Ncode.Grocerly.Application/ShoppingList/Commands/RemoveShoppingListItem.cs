@@ -16,6 +16,7 @@ namespace Ncode.Grocerly.Application.Commands
             IShoppingListPermissionRepository permissionRepository)
         {
             _unitOfWork = unitOfWork;
+            _permissionRepository = permissionRepository;
         }
 
         public void Handle((long shoppingListId, string name, string username) parameter)
