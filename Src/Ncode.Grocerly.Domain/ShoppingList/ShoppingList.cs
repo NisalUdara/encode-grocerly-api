@@ -38,6 +38,8 @@ namespace Ncode.Grocerly.Domain
 
         public DateTime FinishedDateTime { get; private set; }
 
+        public IList<ShoppingListItem> Items { get; private set; }
+
         public bool IsEmpty
         {
             get
@@ -53,8 +55,6 @@ namespace Ncode.Grocerly.Domain
                 return Items.Where(item => item.IsPicked).Count() == Items.Count() && !IsEmpty;
             }
         }
-
-        public IList<ShoppingListItem> Items { get; private set; }
 
         public void AddItem(Name name, UnitOfMeasure unitOfMeasure, int quantity)
         {
