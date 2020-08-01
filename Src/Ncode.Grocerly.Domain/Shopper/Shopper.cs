@@ -28,7 +28,7 @@ namespace Ncode.Grocerly.Domain
         }
 
         public string Username { get; private set; }
-        public int WishList { get; private set; }
+        public int WishListId { get; private set; }
         public List<int> ShoppingLists { get; private set; }
         public List<Share> SharedShoppingLists { get; private set; }
 

@@ -1,6 +1,4 @@
 ﻿using Ncode.Grocerly.Application.Common;
-using Ncode.Grocerly.Application.Repository;
-using Ncode.Grocerly.Domain;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,17 +6,18 @@ namespace Ncode.Grocerly.Application.Queries
 {
     public class GetShopperList : IQuery<string, IEnumerable<string>>
     {
-        private readonly IRepository<Shopper> _repository;
+        private readonly IGrocerlyDbContext _dbContext;
 
-        public GetShopperList(IRepository<Shopper> repository)
+        public GetShopperList(IGrocerlyDbContext dbContext)
         {
-            _repository = repository;
+            _dbContext = dbContext;
         }
 
         public IEnumerable<string> Handle(string username)
         {
-            var usernames = _repository
-                .Get(shopper => shopper.Username.Contains(username))
+            var usernames = _dbContext
+                .Shoppers
+                .Where(shopper => shopper.Username.Contains(username))
                 .Select(shopper => shopper.Username);
 
             return usernames;

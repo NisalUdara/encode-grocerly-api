@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Ncode.Grocerly.Common\Ncode.Grocerly.Common.csproj" />
     <ProjectReference Include="..\Ncode.Grocerly.Domain\Ncode.Grocerly.Domain.csproj" />
   </ItemGroup>

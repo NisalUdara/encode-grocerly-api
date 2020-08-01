@@ -9,28 +9,25 @@ namespace Ncode.Grocerly.Application.Queries
 {
     public class GetShoppingListsOwnedByUser : IQuery<string, IEnumerable<ShoppingList>>
     {
-        private readonly IRepository<Shopper> _shopperRepository;
-        private readonly IRepository<ShoppingList> _shoppingListRepository;
+        private readonly IGrocerlyDbContext _dbContext;
 
         public GetShoppingListsOwnedByUser(
-            IRepository<Shopper> shopperRepository,
-            IRepository<ShoppingList> shoppingListRepository)
+            IGrocerlyDbContext dbContext)
         {
-            _shopperRepository = shopperRepository;
-            _shoppingListRepository = shoppingListRepository;
+            _dbContext = dbContext;
         }
 
         public IEnumerable<ShoppingList> Handle(string username)
         {
-            var owner = _shopperRepository
-                .Get(shopper => shopper.Username.Equals(username)).FirstOrDefault();
+            var owner = _dbContext.Shoppers
+                .FirstOrDefault(shopper => shopper.Username.Equals(username));
             if (owner is null)
             {
                 throw new UnregisteredShopperException();
             }
 
-            var shoppingLists = _shoppingListRepository
-                .Get(shoppingLists => shoppingLists.OwnerId == owner.Id);
+            var shoppingLists = _dbContext.ShoppingLists
+                .Where(shoppingLists => shoppingLists.OwnerId == owner.Id);
             return shoppingLists;
         }
     }

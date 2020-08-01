@@ -8,28 +8,26 @@ namespace Ncode.Grocerly.Application.Commands
 {
     public class RemoveWishListItem : ICommand<(string name, string username)>
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IGrocerlyDbContext _dbContext;
 
-        public RemoveWishListItem(IUnitOfWork unitOfWork)
+        public RemoveWishListItem(IGrocerlyDbContext dbContext)
         {
-            _unitOfWork = unitOfWork;
+            _dbContext = dbContext;
         }
 
         public void Handle((string name, string username) parameters)
         {
 
-            var shopper = _unitOfWork.Shoppers
-                .Get(shopper => shopper.Username.Equals(parameters.username))
-                .FirstOrDefault();
+            var shopper = _dbContext.Shoppers
+                .FirstOrDefault(shopper => shopper.Username.Equals(parameters.username));
 
             if (shopper is null)
             {
                 throw new UnregisteredShopperException();
             }
 
-            var wishList = _unitOfWork.WishLists
-                .Get(wishList => wishList.OwnerId == shopper.Id)
-                .FirstOrDefault();
+            var wishList = _dbContext.WishLists
+                .FirstOrDefault(wishList => wishList.OwnerId == shopper.Id);
 
             if (wishList is null)
             {
@@ -37,8 +35,8 @@ namespace Ncode.Grocerly.Application.Commands
             }
 
             wishList.RemoveItem((Name)parameters.name);
-            _unitOfWork.WishLists.Update(wishList);
-            _unitOfWork.Save();
+            _dbContext.WishLists.Update(wishList);
+            _dbContext.SaveChanges();
         }
     }
 }

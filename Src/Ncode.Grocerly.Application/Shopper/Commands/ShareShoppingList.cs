@@ -6,39 +6,37 @@ namespace Ncode.Grocerly.Application.Commands
 {
     public class ShareShoppingList : ICommand<(long shoppingListId, string ownerUsername, string sharedWithUsername)>
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IGrocerlyDbContext _dbContext;
 
-        public ShareShoppingList(IUnitOfWork unitOfWork)
+        public ShareShoppingList(IGrocerlyDbContext dbContext)
         {
-            _unitOfWork = unitOfWork;
+            _dbContext = dbContext;
         }
         public void Handle((long shoppingListId, string ownerUsername, string sharedWithUsername) parameter)
         {
-            var shoppingList = _unitOfWork.ShoppingLists.GetById(parameter.shoppingListId);
+            var shoppingList = _dbContext.ShoppingLists.FirstOrDefault(shoppingList => shoppingList.Id == parameter.shoppingListId);
             if (shoppingList is null)
             {
                 throw new MissingShoppingListException();
             }
 
-            var owner = _unitOfWork.Shoppers
-                .Get(shopper => shopper.Username.Equals(parameter.ownerUsername))
-                .FirstOrDefault();
+            var owner = _dbContext.Shoppers
+                .FirstOrDefault(shopper => shopper.Username.Equals(parameter.ownerUsername));
             if (owner.Id != shoppingList.OwnerId)
             {
                 throw new UnauthorizedShopperException();
             }
 
-            var sharedWith = _unitOfWork.Shoppers
-                .Get(shopper => shopper.Username.Equals(parameter.sharedWithUsername))
-                .FirstOrDefault();
+            var sharedWith = _dbContext.Shoppers
+                .FirstOrDefault(shopper => shopper.Username.Equals(parameter.sharedWithUsername));
             if (sharedWith is null)
             {
                 throw new UnregisteredShopperException("User doesn't exist to share the shopping list.");
             }
 
             owner.Share(sharedWith.Id, shoppingList.Id);
-            _unitOfWork.Shoppers.Update(owner);
-            _unitOfWork.Save();
+            _dbContext.Shoppers.Update(owner);
+            _dbContext.SaveChanges();
         }
     }
 }

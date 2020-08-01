@@ -8,31 +8,26 @@ namespace Ncode.Grocerly.Application.Queries
 {
     public class GetWishList: IQuery<string, WishList>
     {
-        private readonly IRepository<Shopper> _shopperRepository;
-        private readonly IRepository<WishList> _wishListrepository;
+        private readonly IGrocerlyDbContext _dbContext;
 
         public GetWishList(
-            IRepository<Shopper> shopperRepository,
-            IRepository<WishList> wishListrepository)
+            IGrocerlyDbContext dbContext)
         {
-            _shopperRepository = shopperRepository;
-            _wishListrepository = wishListrepository;
+            _dbContext = dbContext;
         }
 
         public WishList Handle(string username)
         {
-            var shopper = _shopperRepository
-                .Get(shopper => shopper.Username.Equals(username))
-                .FirstOrDefault();
+            var shopper = _dbContext.Shoppers
+                .FirstOrDefault(shopper => shopper.Username.Equals(username));
 
             if (shopper is null)
             {
                 throw new UnregisteredShopperException();
             }
 
-            var wishList = _wishListrepository
-                .Get(wishList => wishList.OwnerId == shopper.Id)
-                .FirstOrDefault();
+            var wishList = _dbContext.WishLists
+                .FirstOrDefault(wishList => wishList.OwnerId == shopper.Id);
 
             if (wishList is null)
             {

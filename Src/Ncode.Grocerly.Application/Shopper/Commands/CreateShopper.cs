@@ -11,22 +11,22 @@ namespace Ncode.Grocerly.Application.Commands
 {
     public class CreateShopper : ICommand<string>
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IGrocerlyDbContext _dbContext;
 
         private readonly IIdGenerator _idGenerator;
 
         private readonly IClock _clock;
 
-        public CreateShopper(IUnitOfWork unitOfWork, IIdGenerator idGenerator, IClock clock)
+        public CreateShopper(IGrocerlyDbContext dbContext, IIdGenerator idGenerator, IClock clock)
         {
-            _unitOfWork = unitOfWork;
+            _dbContext = dbContext;
             _idGenerator = idGenerator;
             _clock = clock;
         }
 
         public void Handle(string username)
         {
-            var isUserExists = _unitOfWork.Shoppers.Get(shopper => shopper.Username.Equals(username)).Any();
+            var isUserExists = _dbContext.Shoppers.Where(shopper => shopper.Username.Equals(username)).Any();
             if (isUserExists)
             {
                 throw new DuplicateUsernameException();
@@ -35,8 +35,7 @@ namespace Ncode.Grocerly.Application.Commands
             var id = _idGenerator.CreateId();
             var createdDateTime = _clock.UtcNow;
             var newShopper = new Shopper(id, username, createdDateTime);
-            _unitOfWork.Shoppers.Add(newShopper);
-            _unitOfWork.Save();
+            _dbContext.Shoppers.Add(newShopper);
         }
     }
 }

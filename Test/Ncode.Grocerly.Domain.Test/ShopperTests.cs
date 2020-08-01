@@ -19,7 +19,7 @@ namespace Ncode.Grocerly.Domain.Test
             var shopper = new Shopper(shopperId, shopperUsername, DateTime.UtcNow);
             shopper.Id.Should().Equals(shopperId);
             shopper.Username.Should().Equals(shopperUsername);
-            shopper.WishList.Should().Equals(shopperWishlistId);
+            shopper.WishListId.Should().Equals(shopperWishlistId);
             shopper.ShoppingLists.Count.Equals(0);
             shopper.SharedShoppingLists.Count.Equals(0);
 

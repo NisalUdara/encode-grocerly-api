@@ -11,26 +11,23 @@ namespace Ncode.Grocerly.Application.Queries
 {
     public class GetShoppingListsSharedWithUser : IQuery<string, IEnumerable<ShoppingList>>
     {
-        private readonly IRepository<Shopper> _shopperRespository;
-        private readonly IShoppingListSharesRepository _sharesRespository;
+        private readonly IGrocerlyDbContext _dbContext;
 
         public GetShoppingListsSharedWithUser(
-            IRepository<Shopper> shopperRespository,
-            IShoppingListSharesRepository sharesRespository)
+            IGrocerlyDbContext dbContext)
         {
-            _shopperRespository = shopperRespository;
-            _sharesRespository = sharesRespository;
+            _dbContext = dbContext;
         }
 
         public IEnumerable<ShoppingList> Handle(string username)
         {
-            var sharee = _shopperRespository.Get(shopper => shopper.Username.Equals(username)).FirstOrDefault();
+            var sharee = _dbContext.Shoppers.FirstOrDefault(shopper => shopper.Username.Equals(username));
             if (sharee is null)
             {
                 throw new UnregisteredShopperException();
             }
 
-            var sharedShoppingListIds = _sharesRespository.GetShareShoppingListsForShopper(username);
+            var sharedShoppingListIds = new List<ShoppingList>();
             return sharedShoppingListIds;
         }
     }

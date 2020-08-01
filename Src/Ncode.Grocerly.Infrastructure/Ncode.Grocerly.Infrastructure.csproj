@@ -1,16 +1,21 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Persistence\EntityConfigurations\" />
-    <Folder Include="Persistence\Repositories\" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.6" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ncode.Grocerly.Application\Ncode.Grocerly.Application.csproj" />
     <ProjectReference Include="..\Ncode.Grocerly.Domain\Ncode.Grocerly.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Persistence\Repositories\" />
   </ItemGroup>
 
 </Project>
