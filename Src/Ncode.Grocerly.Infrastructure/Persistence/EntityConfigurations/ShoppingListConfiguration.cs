@@ -33,6 +33,8 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
             builder.Property(s => s.CreatedDateTime)
                 .HasColumnType("datetime")
                 .IsRequired();
+            builder.HasMany(s => s.Items)
+                .WithOne();
             //builder.Property(s => s.)
         }
     }

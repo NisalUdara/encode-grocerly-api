@@ -16,8 +16,7 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
                 .HasColumnType("int")
                 .IsRequired();
             builder.HasMany(s => s.Items)
-                .WithOne()
-            //builder.Property(s => s.)
+                .WithOne();
         }
     }
 }

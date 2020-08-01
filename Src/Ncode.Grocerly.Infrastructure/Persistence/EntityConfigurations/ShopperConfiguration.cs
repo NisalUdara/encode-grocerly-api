@@ -16,6 +16,8 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
                 .HasColumnType("varch(100)")
                 .HasMaxLength(200)
                 .IsRequired();
+            builder.HasMany(s => s.SharedShoppingLists)
+                .WithOne();
             //builder.Property(s => s.)
         }
     }

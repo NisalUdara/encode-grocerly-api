@@ -12,9 +12,6 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
             builder.Property<int>("Id")
                 .ValueGeneratedOnAdd()
                 .IsRequired();
-            builder.Property(s => s.IsPicked)
-                .HasColumnType("bit")
-                .IsRequired();
             builder.Property(s => s.Name)
                 .HasColumnType("varchar(100)")
                 .HasMaxLength(100)
