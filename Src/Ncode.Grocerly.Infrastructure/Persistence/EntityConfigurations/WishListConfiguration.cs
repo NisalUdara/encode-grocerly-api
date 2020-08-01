@@ -17,6 +17,8 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
                 .IsRequired();
             builder.HasMany(s => s.Items)
                 .WithOne();
+            builder.Property<byte[]>("Version")
+                .IsRowVersion();
         }
     }
 }

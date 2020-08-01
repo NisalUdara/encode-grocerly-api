@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ncode.Grocerly.Common", "Nc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ncode.Grocerly.Application", "Ncode.Grocerly.Application\Ncode.Grocerly.Application.csproj", "{DFBB5398-6B1A-412E-8B15-36BB697C68BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ncode.Grocerly.Infrastructure", "Ncode.Grocerly.Infrastructure\Ncode.Grocerly.Infrastructure.csproj", "{A000EBD5-3D7C-4520-9584-CD146A16AF34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ncode.Grocerly.Infrastructure", "Ncode.Grocerly.Infrastructure\Ncode.Grocerly.Infrastructure.csproj", "{A000EBD5-3D7C-4520-9584-CD146A16AF34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ncode.Grocerly.RestApi", "Ncode.Grocerly.RestApi\Ncode.Grocerly.RestApi.csproj", "{CCB3AA53-0AA2-4353-9AF4-F2D6F8CF7624}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{A000EBD5-3D7C-4520-9584-CD146A16AF34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A000EBD5-3D7C-4520-9584-CD146A16AF34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A000EBD5-3D7C-4520-9584-CD146A16AF34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCB3AA53-0AA2-4353-9AF4-F2D6F8CF7624}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCB3AA53-0AA2-4353-9AF4-F2D6F8CF7624}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCB3AA53-0AA2-4353-9AF4-F2D6F8CF7624}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCB3AA53-0AA2-4353-9AF4-F2D6F8CF7624}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

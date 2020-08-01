@@ -22,6 +22,8 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
             builder.Property(s => s.UnitOfMeasure)
                 .HasColumnType("int")
                 .IsRequired();
+            builder.Property<byte[]>("Version")
+                .IsRowVersion();
         }
     }
 }

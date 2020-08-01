@@ -21,7 +21,8 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
             builder.Property(s => s.ShoppingListId)
                 .HasColumnType("int")
                 .IsRequired();
-            //builder.Property(s => s.)
+            builder.Property<byte[]>("Version")
+                .IsRowVersion();
         }
     }
 }

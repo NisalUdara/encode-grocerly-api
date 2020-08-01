@@ -18,7 +18,8 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
                 .IsRequired();
             builder.HasMany(s => s.SharedShoppingLists)
                 .WithOne();
-            //builder.Property(s => s.)
+            builder.Property<byte[]>("Version")
+                .IsRowVersion();
         }
     }
 }
