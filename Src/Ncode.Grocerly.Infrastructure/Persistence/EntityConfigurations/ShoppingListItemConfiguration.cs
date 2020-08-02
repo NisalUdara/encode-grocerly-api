@@ -8,10 +8,10 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<ShoppingListItem> builder)
         {
-            builder.HasKey("Id");
             builder.Property<int>("Id")
                 .ValueGeneratedOnAdd()
                 .IsRequired();
+            builder.HasKey("Id");
             builder.Property(s => s.Name)
                 .HasColumnType("varchar(100)")
                 .HasMaxLength(100)

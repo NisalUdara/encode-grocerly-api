@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Ncode.Grocerly.Application.Dtos;
+using Ncode.Grocerly.Application.Queries;
+using Ncode.Grocerly.RestApi.Authentication;
+using System;
+using System.Threading.Tasks;
 
 namespace Ncode.Grocerly.RestApi.Controllers.v1
 {
@@ -13,11 +12,19 @@ namespace Ncode.Grocerly.RestApi.Controllers.v1
     [ApiController]
     public class ShopperController : ControllerBase
     {
+        private readonly IMediator _mediator;
 
-        [HttpGet]
-        public ShopperProfile Get()
+        public ShopperController(IMediator mediator)
         {
-            throw new NotImplementedException();
+            _mediator = mediator;
+        }
+
+        [Authorize]
+        [HttpGet]
+        public async Task<ShopperProfileResponse> Get()
+        {
+            var response = await _mediator.Send(new ShopperProfileRequest() { Username = User.GetUsername() });
+            return response;
         }
 
         [Authorize]

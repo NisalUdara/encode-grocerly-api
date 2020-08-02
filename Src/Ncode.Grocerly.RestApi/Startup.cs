@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Ncode.Grocerly.Application.Common;
+using Ncode.Grocerly.Application.Queries;
 using Ncode.Grocerly.Infrastructure.Persistence;
 using Ncode.Grocerly.RestApi.Authentication;
 
@@ -33,6 +35,8 @@ namespace Ncode.Grocerly.RestApi
                 opt =>  opt.UseInMemoryDatabase("grocerly"));
 
             services.AddTransient<IGrocerlyDbContext, GrocerlyDbContext>();
+
+            services.AddMediatR(typeof(GetShopperProfile));
 
             services.AddControllers();
 

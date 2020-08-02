@@ -1,11 +1,8 @@
-﻿using Ncode.Grocerly.Domain;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace Ncode.Grocerly.Application.Dtos
+namespace Ncode.Grocerly.Application.Queries
 {
-    public class ShopperProfile
+    public class ShopperProfileResponse
     {
         public string Username { get; set; }
         public Dictionary<long, string> OwnedShoppingLists { get; set; }

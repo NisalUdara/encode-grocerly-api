@@ -11,10 +11,10 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Share> builder)
         {
-            builder.HasKey("Id");
             builder.Property<int>("Id")
                 .ValueGeneratedOnAdd()
                 .IsRequired();
+            builder.HasKey("Id");
             builder.Property(s => s.ShopperId)
                 .HasColumnType("int")
                 .IsRequired();
