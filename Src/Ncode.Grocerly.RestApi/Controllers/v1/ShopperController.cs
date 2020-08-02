@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Ncode.Grocerly.Application.Shopper.Dtos;
+using Ncode.Grocerly.Application.Dtos;
 
 namespace Ncode.Grocerly.RestApi.Controllers.v1
 {
@@ -19,9 +20,11 @@ namespace Ncode.Grocerly.RestApi.Controllers.v1
             throw new NotImplementedException();
         }
 
+        [Authorize]
         [HttpPost]
-        public void Post(string username)
+        public void Post()
         {
+            var user = User;
             throw new NotImplementedException();
         }
 

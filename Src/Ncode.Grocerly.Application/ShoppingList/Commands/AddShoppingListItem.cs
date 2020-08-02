@@ -1,12 +1,7 @@
 ﻿using Ncode.Grocerly.Application.Common;
 using Ncode.Grocerly.Application.Exceptions;
-using Ncode.Grocerly.Application.Repository;
 using Ncode.Grocerly.Domain.Common;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Windows.Input;
 
 namespace Ncode.Grocerly.Application.Commands
 {
@@ -14,14 +9,10 @@ namespace Ncode.Grocerly.Application.Commands
     {
         private readonly IGrocerlyDbContext _dbContext;
 
-        private readonly IShoppingListPermissionRepository _permissionRepository;
-
         public AddShoppingListItem(
-            IGrocerlyDbContext dbContext,
-            IShoppingListPermissionRepository permissionRepository)
+            IGrocerlyDbContext dbContext)
         {
             _dbContext = dbContext;
-            _permissionRepository = permissionRepository;
         }
 
         public void Handle((long shoppingListId, string name, UnitOfMeasure unitOfMeasure, int quantity, string username) parameter)
@@ -32,7 +23,7 @@ namespace Ncode.Grocerly.Application.Commands
                 throw new MissingShoppingListException();
             }
 
-            var isAuthorized = _permissionRepository.ValidatePermission(parameter.shoppingListId, parameter.username);
+            var isAuthorized = false;
             if (!isAuthorized)
             {
                 throw new UnauthorizedShopperException();

@@ -1,6 +1,5 @@
 ﻿using Ncode.Grocerly.Application.Common;
 using Ncode.Grocerly.Application.Exceptions;
-using Ncode.Grocerly.Application.Repository;
 using Ncode.Grocerly.Domain;
 using System.Collections.Generic;
 using System.Linq;

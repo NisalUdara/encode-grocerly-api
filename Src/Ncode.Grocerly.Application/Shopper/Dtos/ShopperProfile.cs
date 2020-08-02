@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ncode.Grocerly.Application.Shopper.Dtos
+namespace Ncode.Grocerly.Application.Dtos
 {
     public class ShopperProfile
     {

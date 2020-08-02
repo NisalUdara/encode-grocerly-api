@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace Ncode.Grocerly.Infrastructure.Persistence
 {
-    internal class GrocerlyDbContext : DbContext, IGrocerlyDbContext
+    public class GrocerlyDbContext : DbContext, IGrocerlyDbContext
     {
         public GrocerlyDbContext(DbContextOptions<GrocerlyDbContext> options)
            : base(options)
