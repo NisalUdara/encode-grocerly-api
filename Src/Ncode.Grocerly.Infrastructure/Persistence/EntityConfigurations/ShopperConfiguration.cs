@@ -13,7 +13,7 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
                 .HasColumnType("int")
                 .IsRequired();
             builder.Property(s => s.Username)
-                .HasColumnType("varch(100)")
+                .HasColumnType("varchar(100)")
                 .HasMaxLength(200)
                 .IsRequired();
             builder.HasMany(s => s.SharedShoppingLists)

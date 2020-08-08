@@ -1,17 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Ncode.Grocerly.Application.Common;
 using Ncode.Grocerly.Application.Queries;
 using Ncode.Grocerly.Infrastructure.Persistence;
@@ -32,7 +25,8 @@ namespace Ncode.Grocerly.RestApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<GrocerlyDbContext>(
-                opt =>  opt.UseInMemoryDatabase("grocerly"));
+                //opt =>  opt.UseInMemoryDatabase("grocerly"));
+                opt => opt.UseSqlServer(Configuration.GetConnectionString("grocerly")));
 
             services.AddTransient<IGrocerlyDbContext, GrocerlyDbContext>();
 
