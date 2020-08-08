@@ -34,7 +34,7 @@ namespace Ncode.Grocerly.Application.Commands
 
             var id = _idGenerator.CreateId();
             var createdDateTime = _clock.UtcNow;
-            var newShopper = new Shopper(id, username, createdDateTime);
+            var newShopper = new Shopper(id, username, 1);
             _dbContext.Shoppers.Add(newShopper);
         }
     }

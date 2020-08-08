@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Ncode.Grocerly.Domain;
+using Ncode.Grocerly.Domain.Common;
 
 namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
 {
@@ -13,6 +14,7 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
                 .IsRequired();
             builder.HasKey("Id");
             builder.Property(s => s.Name)
+                .HasConversion(n => n.Text, n => (Name)n)
                 .HasColumnType("varchar(100)")
                 .HasMaxLength(100)
                 .IsRequired();

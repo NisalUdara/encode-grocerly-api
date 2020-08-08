@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Ncode.Grocerly.Domain;
+using Ncode.Grocerly.Domain.Common;
 
 namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
 {
@@ -19,6 +20,7 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
                 .HasColumnType("bit")
                 .IsRequired();
             builder.Property(s => s.Name)
+                .HasConversion(n => n.Text, n => (Name)n)
                 .HasColumnType("varchar(100)")
                 .HasMaxLength(100)
                 .IsRequired();
@@ -37,6 +39,8 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
                 .WithOne();
             builder.Property<byte[]>("Version")
                 .IsRowVersion();
+
+            builder.Ignore(s => s.HasAllItemsPicked);
         }
     }
 }

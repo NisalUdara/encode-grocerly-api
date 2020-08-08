@@ -1,7 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Ncode.Grocerly.Application.Common;
 using Ncode.Grocerly.Domain;
+using Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace Ncode.Grocerly.Infrastructure.Persistence
 {
@@ -25,7 +27,13 @@ namespace Ncode.Grocerly.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            builder.ApplyConfiguration(new ShareConfiguration());
+            builder.ApplyConfiguration(new WishListItemConfiguration());
+            builder.ApplyConfiguration(new ShoppingListItemConfiguration());
+            builder.ApplyConfiguration(new ShopperConfiguration());
+            builder.ApplyConfiguration(new WishListConfiguration());
+            builder.ApplyConfiguration(new ShoppingListConfiguration());
+            //builder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(GrocerlyDbContext)));
             base.OnModelCreating(builder);
         }
     }

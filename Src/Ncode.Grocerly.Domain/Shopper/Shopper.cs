@@ -7,45 +7,32 @@ namespace Ncode.Grocerly.Domain
 {
     public class Shopper: Identity
     {
-        public Shopper(long shopperId, string username, DateTime createdDateTime)
+        public Shopper(long id, string username, int wishListId)
         {
-            Id = shopperId;
+            Id = id;
             Username = username;
-            ShoppingLists = new List<int>();
+            WishListId = wishListId;
             SharedShoppingLists = new List<Share>();
         }
 
         public Shopper(
             int shopperId, 
             string username, 
-            List<int> shoppingLists,
             List<Share> shares)
         {
             Id = shopperId;
             Username = username;
-            ShoppingLists = shoppingLists;
             SharedShoppingLists = shares;
         }
 
         public string Username { get; private set; }
         public int WishListId { get; private set; }
-        public List<int> ShoppingLists { get; private set; }
         public List<Share> SharedShoppingLists { get; private set; }
 
         public void Share(long shopperId, long shoppingListId)
         {
             var share = new Share(shopperId, shoppingListId);
             SharedShoppingLists.Add(share);
-        }
-
-        public void AddShoppingList(int shoppingListId)
-        {
-            ShoppingLists.Add(shoppingListId);
-        }
-
-        public void RemoveShoppingList(int shoppingListId)
-        {
-            ShoppingLists.Remove(shoppingListId);
         }
     }
 }

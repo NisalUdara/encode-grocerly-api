@@ -7,8 +7,9 @@ namespace Ncode.Grocerly.Domain
 {
     public class WishList: Identity
     {
-        public WishList(int ownerId)
+        public WishList(long id, long ownerId)
         {
+            Id = id;
             OwnerId = ownerId;
             Items = new List<WishListItem>();
         }

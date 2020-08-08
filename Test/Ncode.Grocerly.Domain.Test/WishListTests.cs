@@ -11,7 +11,7 @@ namespace Ncode.Grocerly.Domain.Test
         public void TestWishList()
         {
             int testOwnerId = 1;
-            var wishList = new WishList(testOwnerId);
+            var wishList = new WishList(1, testOwnerId);
             wishList.Items.Count.Should().Equals(0);
 
             wishList.AddItem((Name)"Milk", UnitOfMeasure.Bottle, 2);
@@ -22,7 +22,7 @@ namespace Ncode.Grocerly.Domain.Test
             wishList.RemoveItem((Name)"Milk");
             wishList.Items.Count.Should().Equals(2);
 
-            var shoppingList = new ShoppingList(testOwnerId, (Name)"Shopping List 1", DateTime.UtcNow);
+            var shoppingList = new ShoppingList(1, testOwnerId, (Name)"Shopping List 1", DateTime.UtcNow);
             wishList.MoveItem((Name)"Bread", shoppingList);
             wishList.Items.Count.Should().Equals(1);
             shoppingList.Items.Count.Should().Equals(1);

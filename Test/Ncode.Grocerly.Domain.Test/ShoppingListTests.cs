@@ -11,11 +11,12 @@ namespace Ncode.Grocerly.Domain.Test
         public void TestShoppingList()
         {
             var testOwnerId = 1;
+            var shoppingListId = 1;
             var testDate = DateTime.Now;
             var finishDate = DateTime.Now;
             var shoppingListName = (Name)"Vegi List";
 
-            var shoppingList = new ShoppingList(testOwnerId, shoppingListName, testDate);
+            var shoppingList = new ShoppingList(shoppingListId, testOwnerId, shoppingListName, testDate);
             shoppingList.OwnerId.Should().Equals(testOwnerId);
             shoppingList.Name.Should().Equals(shoppingListName);
             shoppingList.CreatedDateTime.Should().Equals(testDate);

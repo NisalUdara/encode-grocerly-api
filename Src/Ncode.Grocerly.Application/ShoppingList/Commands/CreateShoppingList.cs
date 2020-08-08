@@ -32,7 +32,7 @@ namespace Ncode.Grocerly.Application.Commands
 
             var id = _idGenerator.CreateId();
             var createdDateTime = _clock.UtcNow;
-            var shoppingList = new ShoppingList(owner.Id, (Name)parameters.shoppingListName, createdDateTime);
+            var shoppingList = new ShoppingList(id, owner.Id, (Name)parameters.shoppingListName, createdDateTime);
 
             _dbContext.ShoppingLists.Add(shoppingList);
             _dbContext.SaveChanges();

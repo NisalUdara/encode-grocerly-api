@@ -8,16 +8,17 @@ namespace Ncode.Grocerly.Domain
 {
     public class ShoppingList : Identity
     {
-        public ShoppingList(long ownerId, Name name, DateTime createDatetime)
+        public ShoppingList(long id, long ownerId, Name name, DateTime createdDateTime)
         {
+            Id = id;
             OwnerId = ownerId;
             Name = name;
             Items = new List<ShoppingListItem>();
-            CreatedDateTime = createDatetime;
+            CreatedDateTime = createdDateTime;
         }
 
-        public ShoppingList(int ownerId, ShoppingList shoppingList, DateTime createDatetime)
-            : this(ownerId, shoppingList.Name, createDatetime)
+        public ShoppingList(long id, long ownerId, ShoppingList shoppingList, DateTime createdDateTime)
+            : this(id, ownerId, shoppingList.Name, createdDateTime)
         {
             var unPickedItems = shoppingList.Items
                 .Where(item => !item.IsPicked).ToList();
@@ -46,6 +47,7 @@ namespace Ncode.Grocerly.Domain
             {
                 return Items.Count() == 0;
             }
+            private set { IsEmpty = value; }
         }
 
         public bool HasAllItemsPicked
