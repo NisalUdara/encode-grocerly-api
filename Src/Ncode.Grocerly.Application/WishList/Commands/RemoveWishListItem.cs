@@ -1,12 +1,15 @@
-﻿using Ncode.Grocerly.Application.Common;
+﻿using MediatR;
+using Ncode.Grocerly.Application.Common;
 using Ncode.Grocerly.Application.Exceptions;
 using Ncode.Grocerly.Domain.Common;
 using System;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Ncode.Grocerly.Application.Commands
 {
-    public class RemoveWishListItem : ICommand<(string name, string username)>
+    public class RemoveWishListItem : IRequestHandler<RemoveWishListItemRequest, Unit>
     {
         private readonly IGrocerlyDbContext _dbContext;
 
@@ -17,13 +20,16 @@ namespace Ncode.Grocerly.Application.Commands
 
         public void Handle((string name, string username) parameters)
         {
+        }
 
+        public Task<Unit> Handle(RemoveWishListItemRequest request, CancellationToken cancellationToken)
+        {
             var shopper = _dbContext.Shoppers
-                .FirstOrDefault(shopper => shopper.Username.Equals(parameters.username));
+                .FirstOrDefault(shopper => shopper.Username.Equals(request.Username));
 
             if (shopper is null)
             {
-                throw new UnregisteredShopperException();
+                throw new UnauthorizedAccessException();
             }
 
             var wishList = _dbContext.WishLists
@@ -31,12 +37,14 @@ namespace Ncode.Grocerly.Application.Commands
 
             if (wishList is null)
             {
-                throw new UnregisteredShopperException();
+                throw new UnauthorizedAccessException();
             }
 
-            wishList.RemoveItem((Name)parameters.name);
+            wishList.RemoveItem(request.ItemName);
             _dbContext.WishLists.Update(wishList);
             _dbContext.SaveChanges();
+
+            return Task.FromResult(Unit.Value);
         }
     }
 }

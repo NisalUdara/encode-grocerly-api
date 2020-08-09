@@ -1,11 +1,14 @@
-﻿using Ncode.Grocerly.Application.Common;
+﻿using MediatR;
+using Ncode.Grocerly.Application.Common;
 using Ncode.Grocerly.Application.Exceptions;
 using Ncode.Grocerly.Domain.Common;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Ncode.Grocerly.Application.Commands
 {
-    public class AddWishListItem : ICommand<(string username, Name name, UnitOfMeasure unitOfMeasure, int quantity)>
+    public class AddWishListItem : IRequestHandler<AddWishListItemRequest, Unit>
     {
         private readonly IGrocerlyDbContext _dbContext;
 
@@ -14,27 +17,29 @@ namespace Ncode.Grocerly.Application.Commands
             _dbContext = dbContext;
         }
 
-        public void Handle((string username, Name name, UnitOfMeasure unitOfMeasure, int quantity) parameters)
+        public Task<Unit> Handle(AddWishListItemRequest request, CancellationToken cancellationToken)
         {
             var shopper = _dbContext.Shoppers
-                .FirstOrDefault(shopper => shopper.Username.Equals(parameters.username));
+                .FirstOrDefault(shopper => shopper.Username.Equals(request.Username));
 
             if (shopper is null)
             {
-                throw new UnregisteredShopperException();
+                throw new UnauthorizedShopperException();
             }
 
             var wishList = _dbContext.WishLists
-                .FirstOrDefault(wishList => wishList.OwnerId == shopper.Id);
+                .FirstOrDefault(wishList => wishList.OwnerId == shopper.Id && wishList.Id == request.WishListId);
 
             if (wishList is null)
             {
-                throw new UnregisteredShopperException();
+                throw new UnauthorizedShopperException();
             }
 
-            wishList.AddItem(parameters.name, parameters.unitOfMeasure, parameters.quantity);
+            wishList.AddItem(request.Item.Name, request.Item.UnitOfMeasure, request.Item.Quantity);
             _dbContext.WishLists.Update(wishList);
             _dbContext.SaveChanges();
+
+            return Task.FromResult(Unit.Value);
         }
     }
 }

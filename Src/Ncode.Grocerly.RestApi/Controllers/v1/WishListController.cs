@@ -1,31 +1,40 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Ncode.Grocerly.Application.Commands;
 using Ncode.Grocerly.Domain;
-using System;
+using Ncode.Grocerly.Domain.Common;
+using Ncode.Grocerly.RestApi.Authentication;
+using System.Threading.Tasks;
 
 namespace Ncode.Grocerly.RestApi.Controllers.v1
 {
+    [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class WishListController : ControllerBase
     {
-        [HttpGet]
-        public WishList Get()
+        private IMediator _mediator;
+
+        public WishListController(IMediator mediator)
         {
-            throw new NotImplementedException();
+            _mediator = mediator;
         }
 
         [Route("{wishListId}/items")]
         [HttpPost]
-        public WishList Post(int wishListId,[FromBody]string wishListDetails)
+        public async Task<IActionResult> Post(long wishListId,[FromBody]WishListItem item)
         {
-            throw new NotImplementedException();
+            var response = await _mediator.Send(new AddWishListItemRequest() { Username = User.GetUsername(), WishListId = wishListId, Item = item });
+            return Created($"{wishListId}/items", item);
         }
 
         [Route("{wishListId}/items/{id}")]
         [HttpDelete]
-        public WishList Delete(int wishListId, int id)
+        public async Task<IActionResult> Delete(long wishListId, Name name)
         {
-            throw new NotImplementedException();
+            var response = await _mediator.Send(new RemoveWishListItemRequest() { Username = User.GetUsername(), WishListId = wishListId, ItemName = name });
+            return NoContent();
         }
     }
 }

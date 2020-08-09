@@ -22,6 +22,12 @@ namespace Ncode.Grocerly.RestApi.ExceptionHandling
                 context.Result = new BadRequestResult();
                 context.ExceptionHandled = true;
             }
+            else if (context.Exception is UnauthorizedShopperException)
+            {
+                context.Result = new BadRequestResult();
+                context.ExceptionHandled = true;
+            }
+            
         }
     }
 }

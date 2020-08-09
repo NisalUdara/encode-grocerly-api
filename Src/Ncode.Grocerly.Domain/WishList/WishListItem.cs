@@ -7,7 +7,7 @@ namespace Ncode.Grocerly.Domain
 {
     public class WishListItem
     {
-        internal WishListItem(Name name, UnitOfMeasure unitOfMeasure, int quantity)
+        public WishListItem(Name name, UnitOfMeasure unitOfMeasure, int quantity)
         {
             Name = name;
             UnitOfMeasure = unitOfMeasure;

@@ -4,7 +4,6 @@ using Ncode.Grocerly.Application.Exceptions;
 using Ncode.Grocerly.Application.Queries;
 using Ncode.Grocerly.Common;
 using Ncode.Grocerly.Domain;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
