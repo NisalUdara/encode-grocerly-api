@@ -16,7 +16,7 @@ namespace Ncode.Grocerly.RestApi.ExceptionHandling
 
         public void OnActionExecuted(ActionExecutedContext context)
         {
-            if (context.Exception is UnregisteredShopperException exception)
+            if (context.Exception is UnregisteredShopperException)
             {
                 context.Result = new NoContentResult();
                 context.ExceptionHandled = true;
