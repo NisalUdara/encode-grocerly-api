@@ -1,15 +1,18 @@
-﻿using Ncode.Grocerly.Application.Common;
+﻿using MediatR;
+using Ncode.Grocerly.Application.Common;
 using Ncode.Grocerly.Application.Exceptions;
+using Ncode.Grocerly.Application.Queries;
 using Ncode.Grocerly.Common;
 using Ncode.Grocerly.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Ncode.Grocerly.Application.Commands
 {
-    public class CreateShopper : ICommand<string>
+    public class CreateShopper : IRequestHandler<CreateShopperRequest, ShopperProfileResponse>
     {
         private readonly IGrocerlyDbContext _dbContext;
 
@@ -24,18 +27,32 @@ namespace Ncode.Grocerly.Application.Commands
             _clock = clock;
         }
 
-        public void Handle(string username)
+        public Task<ShopperProfileResponse> Handle(CreateShopperRequest request, CancellationToken cancellationToken)
         {
-            var isUserExists = _dbContext.Shoppers.Where(shopper => shopper.Username.Equals(username)).Any();
+            var isUserExists = _dbContext.Shoppers.Where(shopper => shopper.Username.Equals(request.Username)).Any();
             if (isUserExists)
             {
                 throw new DuplicateUsernameException();
             }
 
             var id = _idGenerator.CreateId();
+            var wishListId = _idGenerator.CreateId();
             var createdDateTime = _clock.UtcNow;
-            var newShopper = new Shopper(id, username, 1);
+            var newShopper = new Shopper(id, request.Username, wishListId);
             _dbContext.Shoppers.Add(newShopper);
+
+            var wishList = new WishList(wishListId, id);
+            _dbContext.WishLists.Add(wishList);
+
+            _dbContext.SaveChanges();
+
+            var shopperProfile = new ShopperProfileResponse();
+            shopperProfile.Username = request.Username;
+            shopperProfile.WishList = wishList;
+            shopperProfile.OwnedShoppingLists = new Dictionary<long, string>();
+            shopperProfile.SharedShoppingLists = new Dictionary<long, string>();
+
+            return Task.FromResult(shopperProfile);
         }
     }
 }

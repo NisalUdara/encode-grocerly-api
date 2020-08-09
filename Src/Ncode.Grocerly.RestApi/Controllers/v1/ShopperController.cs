@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Ncode.Grocerly.Application.Commands;
 using Ncode.Grocerly.Application.Queries;
 using Ncode.Grocerly.RestApi.Authentication;
 using System;
@@ -21,18 +22,18 @@ namespace Ncode.Grocerly.RestApi.Controllers.v1
 
         [Authorize]
         [HttpGet]
-        public async Task<ShopperProfileResponse> Get()
+        public async Task<IActionResult> Get()
         {
             var response = await _mediator.Send(new ShopperProfileRequest() { Username = User.GetUsername() });
-            return response;
+            return Ok(response);
         }
 
         [Authorize]
         [HttpPost]
-        public void Post()
+        public async Task<IActionResult> Post()
         {
-            var user = User;
-            throw new NotImplementedException();
+            var response = await _mediator.Send(new CreateShopperRequest() { Username = User.GetUsername() });
+            return Created("", response);
         }
 
         [Route("{shoppingListId}/share")]

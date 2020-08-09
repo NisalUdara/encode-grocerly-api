@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Ncode.Grocerly.Domain;
+using System.Collections.Generic;
 
 namespace Ncode.Grocerly.Application.Queries
 {
@@ -7,5 +8,6 @@ namespace Ncode.Grocerly.Application.Queries
         public string Username { get; set; }
         public Dictionary<long, string> OwnedShoppingLists { get; set; }
         public Dictionary<long, string> SharedShoppingLists { get; set; }
+        public WishList WishList { get; set; }
     }
 }

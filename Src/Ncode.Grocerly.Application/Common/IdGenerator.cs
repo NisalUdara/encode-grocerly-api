@@ -1,16 +1,14 @@
-﻿using Ncode.Grocerly.Common;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using IdGenGenerator = IdGen.IdGenerator;
+using Ncode.Grocerly.Common;
 
 namespace Ncode.Grocerly.Application.Common
 {
     public class IdGenerator : IIdGenerator
     {
-        private readonly IdGenerator _idGenerator;
+        private readonly IdGenGenerator _idGenerator;
         public IdGenerator()
         {
-            _idGenerator = new IdGenerator();
+            _idGenerator = new IdGenGenerator(1);
         }
         public long CreateId()
         {

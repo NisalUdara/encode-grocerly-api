@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Ncode.Grocerly.Application.Common;
 using Ncode.Grocerly.Application.Queries;
+using Ncode.Grocerly.Common;
 using Ncode.Grocerly.Infrastructure.Persistence;
 using Ncode.Grocerly.RestApi.Authentication;
 using Ncode.Grocerly.RestApi.ExceptionHandling;
@@ -30,6 +31,10 @@ namespace Ncode.Grocerly.RestApi
                 opt => opt.UseSqlServer(Configuration.GetConnectionString("grocerly")));
 
             services.AddTransient<IGrocerlyDbContext, GrocerlyDbContext>();
+
+            services.AddTransient<IIdGenerator, IdGenerator>();
+
+            services.AddTransient<IClock, Clock>();
 
             services.AddMediatR(typeof(GetShopperProfile));
 
