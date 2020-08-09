@@ -49,8 +49,7 @@ namespace Ncode.Grocerly.Application.Commands
             var shopperProfile = new ShopperProfileResponse();
             shopperProfile.Username = request.Username;
             shopperProfile.WishList = wishList;
-            shopperProfile.OwnedShoppingLists = new Dictionary<long, string>();
-            shopperProfile.SharedShoppingLists = new Dictionary<long, string>();
+            shopperProfile.ShoppingLists = new List<KeyValuePair<long, string>>();
 
             return Task.FromResult(shopperProfile);
         }

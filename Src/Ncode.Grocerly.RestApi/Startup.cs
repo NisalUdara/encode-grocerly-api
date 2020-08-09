@@ -38,7 +38,7 @@ namespace Ncode.Grocerly.RestApi
 
             services.AddMediatR(typeof(GetShopperProfile));
 
-            services.AddControllers(options => options.Filters.Add(new ExceptionFilter()));
+            services.AddControllers(options => options.Filters.Add(new ExceptionFilter())).AddNewtonsoftJson();
 
             services.AddSwaggerGen();
 

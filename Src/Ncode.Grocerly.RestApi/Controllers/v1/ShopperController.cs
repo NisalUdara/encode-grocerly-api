@@ -35,12 +35,5 @@ namespace Ncode.Grocerly.RestApi.Controllers.v1
             var response = await _mediator.Send(new CreateShopperRequest() { Username = User.GetUsername() });
             return Created("", response);
         }
-
-        [Route("{shoppingListId}/share")]
-        [HttpPost]
-        public void Share(string username)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

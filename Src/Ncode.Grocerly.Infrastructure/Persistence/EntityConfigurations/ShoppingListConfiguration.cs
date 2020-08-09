@@ -11,6 +11,7 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
         {
             builder.HasKey(s => s.Id);
             builder.Property(s => s.Id)
+                .ValueGeneratedNever()
                 .HasColumnType("bigint")
                 .IsRequired();
             builder.Property(s => s.IsCompleted)

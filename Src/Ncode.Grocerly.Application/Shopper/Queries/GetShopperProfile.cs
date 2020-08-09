@@ -1,7 +1,11 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Ncode.Grocerly.Application.Common;
 using Ncode.Grocerly.Application.Exceptions;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -27,7 +31,25 @@ namespace Ncode.Grocerly.Application.Queries
                 throw new UnregisteredShopperException();
             }
 
-            return Task.FromResult(new ShopperProfileResponse());
+            var wishList = _dbContext
+                .WishLists
+                .Include(w => w.Items)
+                .FirstOrDefault(w => w.OwnerId == shopper.Id);
+
+            var ownedShoppingLists = _dbContext
+                .ShoppingLists
+                .Where(s => s.OwnerId == shopper.Id)
+                .Select(s => new KeyValuePair<long, string>(s.Id, s.Name))
+                .ToList();
+
+            var shopperProfile = new ShopperProfileResponse()
+            {
+                Username = request.Username,
+                WishList = wishList,
+                ShoppingLists = ownedShoppingLists
+            };
+
+            return Task.FromResult(shopperProfile);
         }
     }
 }

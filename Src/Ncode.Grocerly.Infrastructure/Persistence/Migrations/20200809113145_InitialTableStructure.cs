@@ -11,8 +11,7 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
                 name: "Shoppers",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<long>(type: "bigint", nullable: false),
                     Username = table.Column<string>(type: "varchar(100)", maxLength: 200, nullable: false),
                     WishListId = table.Column<long>(nullable: false),
                     Version = table.Column<byte[]>(rowVersion: true, nullable: true)
@@ -26,8 +25,7 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
                 name: "ShoppingLists",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<long>(type: "bigint", nullable: false),
                     OwnerId = table.Column<long>(type: "bigint", nullable: false),
                     Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     IsCompleted = table.Column<bool>(type: "bit", nullable: false),
@@ -45,35 +43,13 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
                 name: "WishLists",
                 columns: table => new
                 {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<long>(type: "bigint", nullable: false),
                     OwnerId = table.Column<long>(type: "bigint", nullable: false),
                     Version = table.Column<byte[]>(rowVersion: true, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_WishLists", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ShareDetails",
-                columns: table => new
-                {
-                    Id = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ShopperId = table.Column<long>(type: "bigint", nullable: false),
-                    ShoppingListId = table.Column<long>(type: "bigint", nullable: false),
-                    Version = table.Column<byte[]>(rowVersion: true, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ShareDetails", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ShareDetails_Shoppers_ShopperId",
-                        column: x => x.ShopperId,
-                        principalTable: "Shoppers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -124,11 +100,6 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ShareDetails_ShopperId",
-                table: "ShareDetails",
-                column: "ShopperId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ShoppingListItems_ShoppingListId",
                 table: "ShoppingListItems",
                 column: "ShoppingListId");
@@ -142,16 +113,13 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ShareDetails");
+                name: "Shoppers");
 
             migrationBuilder.DropTable(
                 name: "ShoppingListItems");
 
             migrationBuilder.DropTable(
                 name: "WishListItems");
-
-            migrationBuilder.DropTable(
-                name: "Shoppers");
 
             migrationBuilder.DropTable(
                 name: "ShoppingLists");

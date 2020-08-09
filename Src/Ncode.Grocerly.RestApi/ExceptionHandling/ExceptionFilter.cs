@@ -1,10 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Ncode.Grocerly.Application.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Ncode.Grocerly.RestApi.ExceptionHandling
 {
@@ -19,6 +15,11 @@ namespace Ncode.Grocerly.RestApi.ExceptionHandling
             if (context.Exception is UnregisteredShopperException)
             {
                 context.Result = new NoContentResult();
+                context.ExceptionHandled = true;
+            }
+            else if (context.Exception is DuplicateUsernameException)
+            {
+                context.Result = new BadRequestResult();
                 context.ExceptionHandled = true;
             }
         }

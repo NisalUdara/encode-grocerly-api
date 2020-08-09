@@ -10,7 +10,7 @@ using Ncode.Grocerly.Infrastructure.Persistence;
 namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(GrocerlyDbContext))]
-    [Migration("20200809090925_InitialTableStructure")]
+    [Migration("20200809113145_InitialTableStructure")]
     partial class InitialTableStructure
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,37 +21,10 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Ncode.Grocerly.Domain.Share", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<long>("ShopperId")
-                        .HasColumnType("bigint");
-
-                    b.Property<long>("ShoppingListId")
-                        .HasColumnType("bigint");
-
-                    b.Property<byte[]>("Version")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("rowversion");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ShopperId");
-
-                    b.ToTable("ShareDetails");
-                });
-
             modelBuilder.Entity("Ncode.Grocerly.Domain.Shopper", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -74,9 +47,7 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("Ncode.Grocerly.Domain.ShoppingList", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime");
@@ -147,9 +118,7 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
             modelBuilder.Entity("Ncode.Grocerly.Domain.WishList", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("bigint");
 
                     b.Property<long>("OwnerId")
                         .HasColumnType("bigint");
@@ -195,15 +164,6 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
                     b.HasIndex("WishListId");
 
                     b.ToTable("WishListItems");
-                });
-
-            modelBuilder.Entity("Ncode.Grocerly.Domain.Share", b =>
-                {
-                    b.HasOne("Ncode.Grocerly.Domain.Shopper", null)
-                        .WithMany("SharedShoppingLists")
-                        .HasForeignKey("ShopperId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Ncode.Grocerly.Domain.ShoppingListItem", b =>

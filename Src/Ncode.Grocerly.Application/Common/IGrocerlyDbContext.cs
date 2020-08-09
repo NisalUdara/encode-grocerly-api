@@ -12,8 +12,6 @@ namespace Ncode.Grocerly.Application.Common
 
         public DbSet<Shopper> Shoppers { get; set; }
 
-        public DbSet<Share> ShareDetails { get; set; }
-
         public DbSet<ShoppingList> ShoppingLists { get; set; }
 
         public DbSet<ShoppingListItem> ShoppingListItems { get; set; }

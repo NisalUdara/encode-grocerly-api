@@ -12,27 +12,9 @@ namespace Ncode.Grocerly.Domain
             Id = id;
             Username = username;
             WishListId = wishListId;
-            SharedShoppingLists = new List<Share>();
-        }
-
-        public Shopper(
-            int shopperId, 
-            string username, 
-            List<Share> shares)
-        {
-            Id = shopperId;
-            Username = username;
-            SharedShoppingLists = shares;
         }
 
         public string Username { get; private set; }
         public long WishListId { get; private set; }
-        public List<Share> SharedShoppingLists { get; private set; }
-
-        public void Share(long shopperId, long shoppingListId)
-        {
-            var share = new Share(shopperId, shoppingListId);
-            SharedShoppingLists.Add(share);
-        }
     }
 }

@@ -16,8 +16,6 @@ namespace Ncode.Grocerly.Infrastructure.Persistence
 
         public DbSet<Shopper> Shoppers { get; set; }
 
-        public DbSet<Share> ShareDetails { get; set; }
-
         public DbSet<ShoppingList> ShoppingLists { get; set; }
 
         public DbSet<ShoppingListItem> ShoppingListItems { get; set; }
@@ -28,7 +26,6 @@ namespace Ncode.Grocerly.Infrastructure.Persistence
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.ApplyConfiguration(new ShareConfiguration());
             builder.ApplyConfiguration(new WishListItemConfiguration());
             builder.ApplyConfiguration(new ShoppingListItemConfiguration());
             builder.ApplyConfiguration(new ShopperConfiguration());

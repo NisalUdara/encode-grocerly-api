@@ -11,13 +11,12 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
             builder.HasKey(s => s.Id);
             builder.Property(s => s.Id)
                 .HasColumnType("bigint")
+                .ValueGeneratedNever()
                 .IsRequired();
             builder.Property(s => s.Username)
                 .HasColumnType("varchar(100)")
                 .HasMaxLength(200)
                 .IsRequired();
-            builder.HasMany(s => s.SharedShoppingLists)
-                .WithOne();
             builder.Property<byte[]>("Version")
                 .IsRowVersion();
         }
