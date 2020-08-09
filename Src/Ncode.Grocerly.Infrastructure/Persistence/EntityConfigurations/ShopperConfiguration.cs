@@ -10,7 +10,7 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
         {
             builder.HasKey(s => s.Id);
             builder.Property(s => s.Id)
-                .HasColumnType("int")
+                .HasColumnType("bigint")
                 .IsRequired();
             builder.Property(s => s.Username)
                 .HasColumnType("varchar(100)")

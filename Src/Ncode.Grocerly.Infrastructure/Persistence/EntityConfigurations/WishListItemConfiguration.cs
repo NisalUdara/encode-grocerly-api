@@ -9,7 +9,7 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<WishListItem> builder)
         {
-            builder.Property<int>("Id")
+            builder.Property<long>("Id")
                 .ValueGeneratedOnAdd()
                 .IsRequired();
             builder.HasKey("Id");

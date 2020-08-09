@@ -11,9 +11,10 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
                 name: "Shoppers",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(type: "varchar(100)", maxLength: 200, nullable: false),
-                    WishListId = table.Column<int>(nullable: false),
+                    WishListId = table.Column<long>(nullable: false),
                     Version = table.Column<byte[]>(rowVersion: true, nullable: true)
                 },
                 constraints: table =>
@@ -25,8 +26,9 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
                 name: "ShoppingLists",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    OwnerId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OwnerId = table.Column<long>(type: "bigint", nullable: false),
                     Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     IsCompleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "datetime", nullable: false),
@@ -43,8 +45,9 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
                 name: "WishLists",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    OwnerId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OwnerId = table.Column<long>(type: "bigint", nullable: false),
                     Version = table.Column<byte[]>(rowVersion: true, nullable: true)
                 },
                 constraints: table =>
@@ -56,10 +59,10 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
                 name: "ShareDetails",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ShopperId = table.Column<int>(type: "int", nullable: false),
-                    ShoppingListId = table.Column<int>(type: "int", nullable: false),
+                    ShopperId = table.Column<long>(type: "bigint", nullable: false),
+                    ShoppingListId = table.Column<long>(type: "bigint", nullable: false),
                     Version = table.Column<byte[]>(rowVersion: true, nullable: true)
                 },
                 constraints: table =>
@@ -77,13 +80,13 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
                 name: "ShoppingListItems",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     UnitOfMeasure = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     IsPicked = table.Column<bool>(nullable: false),
-                    ShoppingListId = table.Column<int>(nullable: true),
+                    ShoppingListId = table.Column<long>(nullable: true),
                     Version = table.Column<byte[]>(rowVersion: true, nullable: true)
                 },
                 constraints: table =>
@@ -101,13 +104,13 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
                 name: "WishListItems",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
+                    Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
                     UnitOfMeasure = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     Version = table.Column<byte[]>(rowVersion: true, nullable: true),
-                    WishListId = table.Column<int>(nullable: true)
+                    WishListId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {

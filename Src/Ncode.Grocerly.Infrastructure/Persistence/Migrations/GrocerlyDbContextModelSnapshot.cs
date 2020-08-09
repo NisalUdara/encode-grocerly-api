@@ -21,16 +21,16 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Ncode.Grocerly.Domain.Share", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("ShopperId")
-                        .HasColumnType("int");
+                    b.Property<long>("ShopperId")
+                        .HasColumnType("bigint");
 
-                    b.Property<int>("ShoppingListId")
-                        .HasColumnType("int");
+                    b.Property<long>("ShoppingListId")
+                        .HasColumnType("bigint");
 
                     b.Property<byte[]>("Version")
                         .IsConcurrencyToken()
@@ -46,9 +46,10 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Ncode.Grocerly.Domain.Shopper", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Username")
                         .IsRequired()
@@ -60,8 +61,8 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
-                    b.Property<int>("WishListId")
-                        .HasColumnType("int");
+                    b.Property<long>("WishListId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -70,9 +71,10 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Ncode.Grocerly.Domain.ShoppingList", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedDateTime")
                         .HasColumnType("datetime");
@@ -91,8 +93,8 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
                         .HasColumnType("varchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("int");
+                    b.Property<long>("OwnerId")
+                        .HasColumnType("bigint");
 
                     b.Property<byte[]>("Version")
                         .IsConcurrencyToken()
@@ -106,9 +108,9 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Ncode.Grocerly.Domain.ShoppingListItem", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<bool>("IsPicked")
@@ -122,8 +124,8 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ShoppingListId")
-                        .HasColumnType("int");
+                    b.Property<long?>("ShoppingListId")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("UnitOfMeasure")
                         .HasColumnType("int");
@@ -142,12 +144,13 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Ncode.Grocerly.Domain.WishList", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("OwnerId")
-                        .HasColumnType("int");
+                    b.Property<long>("OwnerId")
+                        .HasColumnType("bigint");
 
                     b.Property<byte[]>("Version")
                         .IsConcurrencyToken()
@@ -161,9 +164,9 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
 
             modelBuilder.Entity("Ncode.Grocerly.Domain.WishListItem", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
@@ -182,8 +185,8 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
-                    b.Property<int?>("WishListId")
-                        .HasColumnType("int");
+                    b.Property<long?>("WishListId")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 

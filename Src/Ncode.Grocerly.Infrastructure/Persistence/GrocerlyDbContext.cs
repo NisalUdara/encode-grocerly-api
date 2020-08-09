@@ -4,6 +4,7 @@ using Ncode.Grocerly.Domain;
 using Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace Ncode.Grocerly.Infrastructure.Persistence
 {
@@ -33,7 +34,6 @@ namespace Ncode.Grocerly.Infrastructure.Persistence
             builder.ApplyConfiguration(new ShopperConfiguration());
             builder.ApplyConfiguration(new WishListConfiguration());
             builder.ApplyConfiguration(new ShoppingListConfiguration());
-            //builder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(GrocerlyDbContext)));
             base.OnModelCreating(builder);
         }
     }

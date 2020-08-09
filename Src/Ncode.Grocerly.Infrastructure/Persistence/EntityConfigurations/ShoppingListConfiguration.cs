@@ -11,7 +11,7 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
         {
             builder.HasKey(s => s.Id);
             builder.Property(s => s.Id)
-                .HasColumnType("int")
+                .HasColumnType("bigint")
                 .IsRequired();
             builder.Property(s => s.IsCompleted)
                 .HasColumnType("bit")
@@ -25,7 +25,7 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
                 .HasMaxLength(100)
                 .IsRequired();
             builder.Property(s => s.OwnerId)
-                .HasColumnType("int")
+                .HasColumnType("bigint")
                 .IsRequired();
             builder.Property(s => s.HasAllItemsPicked)
                 .HasColumnType("bit")

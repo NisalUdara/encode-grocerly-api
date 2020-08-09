@@ -10,10 +10,10 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
         {
             builder.HasKey(w => w.Id);
             builder.Property(w => w.Id)
-                .HasColumnType("int")
+                .HasColumnType("bigint")
                 .IsRequired();
             builder.Property(s => s.OwnerId)
-                .HasColumnType("int")
+                .HasColumnType("bigint")
                 .IsRequired();
             builder.HasMany(s => s.Items)
                 .WithOne();
