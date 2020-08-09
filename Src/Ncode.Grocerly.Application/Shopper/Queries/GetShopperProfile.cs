@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Ncode.Grocerly.Application.Common;
+using Ncode.Grocerly.Application.Exceptions;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,10 +18,14 @@ namespace Ncode.Grocerly.Application.Queries
 
         public Task<ShopperProfileResponse> Handle(ShopperProfileRequest request, CancellationToken cancellationToken)
         {
-            var usernames = _dbContext
+            var shopper = _dbContext
                 .Shoppers
-                .Where(shopper => shopper.Username.Contains(request.Username))
-                .Select(shopper => shopper.Username);
+                .FirstOrDefault(shopper => shopper.Username.Equals(request.Username));
+
+            if (shopper is null)
+            {
+                throw new UnregisteredShopperException();
+            }
 
             return Task.FromResult(new ShopperProfileResponse());
         }

@@ -9,6 +9,7 @@ using Ncode.Grocerly.Application.Common;
 using Ncode.Grocerly.Application.Queries;
 using Ncode.Grocerly.Infrastructure.Persistence;
 using Ncode.Grocerly.RestApi.Authentication;
+using Ncode.Grocerly.RestApi.ExceptionHandling;
 
 namespace Ncode.Grocerly.RestApi
 {
@@ -32,7 +33,7 @@ namespace Ncode.Grocerly.RestApi
 
             services.AddMediatR(typeof(GetShopperProfile));
 
-            services.AddControllers();
+            services.AddControllers(options => options.Filters.Add(new ExceptionFilter()));
 
             services.AddSwaggerGen();
 
