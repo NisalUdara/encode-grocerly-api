@@ -11,6 +11,8 @@ using Ncode.Grocerly.Common;
 using Ncode.Grocerly.Infrastructure.Persistence;
 using Ncode.Grocerly.RestApi.Authentication;
 using Ncode.Grocerly.RestApi.ExceptionHandling;
+using Ncode.Grocerly.RestApi.Serializers;
+using Newtonsoft.Json.Converters;
 
 namespace Ncode.Grocerly.RestApi
 {
@@ -38,7 +40,11 @@ namespace Ncode.Grocerly.RestApi
 
             services.AddMediatR(typeof(GetShopperProfile));
 
-            services.AddControllers(options => options.Filters.Add(new ExceptionFilter())).AddNewtonsoftJson();
+            services.AddControllers(options => options.Filters.Add(new ExceptionFilter()))
+                .AddNewtonsoftJson(config => {
+                    config.SerializerSettings.Converters.Add(new IdToStringConverter());
+                    config.SerializerSettings.Converters.Add(new StringEnumConverter());
+                });
 
             services.AddSwaggerGen();
 

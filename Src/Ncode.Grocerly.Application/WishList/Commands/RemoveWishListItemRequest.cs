@@ -9,6 +9,6 @@ namespace Ncode.Grocerly.Application.Commands
 
         public string Username { get; set; }
 
-        public Name ItemName { get; set; }
+        public string ItemName { get; set; }
     }
 }

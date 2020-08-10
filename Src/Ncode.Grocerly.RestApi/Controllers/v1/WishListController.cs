@@ -29,9 +29,9 @@ namespace Ncode.Grocerly.RestApi.Controllers.v1
             return Created($"{wishListId}/items", item);
         }
 
-        [Route("{wishListId}/items/{id}")]
+        [Route("{wishListId}/items/{name}")]
         [HttpDelete]
-        public async Task<IActionResult> Delete(long wishListId, Name name)
+        public async Task<IActionResult> Delete(long wishListId,[FromRoute]string name)
         {
             var response = await _mediator.Send(new RemoveWishListItemRequest() { Username = User.GetUsername(), WishListId = wishListId, ItemName = name });
             return NoContent();

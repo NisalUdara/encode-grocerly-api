@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Ncode.Grocerly.Application.Common;
 using Ncode.Grocerly.Application.Exceptions;
 using Ncode.Grocerly.Domain.Common;
@@ -33,6 +34,7 @@ namespace Ncode.Grocerly.Application.Commands
             }
 
             var wishList = _dbContext.WishLists
+                .Include(w => w.Items)
                 .FirstOrDefault(wishList => wishList.OwnerId == shopper.Id);
 
             if (wishList is null)
@@ -40,7 +42,7 @@ namespace Ncode.Grocerly.Application.Commands
                 throw new UnauthorizedAccessException();
             }
 
-            wishList.RemoveItem(request.ItemName);
+            wishList.RemoveItem((Name)request.ItemName);
             _dbContext.WishLists.Update(wishList);
             _dbContext.SaveChanges();
 

@@ -1,5 +1,6 @@
 ﻿using IdGenGenerator = IdGen.IdGenerator;
 using Ncode.Grocerly.Common;
+using IdGen;
 
 namespace Ncode.Grocerly.Application.Common
 {
