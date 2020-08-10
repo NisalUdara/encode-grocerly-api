@@ -27,7 +27,11 @@ namespace Ncode.Grocerly.RestApi.ExceptionHandling
                 context.Result = new BadRequestResult();
                 context.ExceptionHandled = true;
             }
-            
+            else if (context.Exception is MissingShoppingListException)
+            {
+                context.Result = new BadRequestResult();
+                context.ExceptionHandled = true;
+            }       
         }
     }
 }

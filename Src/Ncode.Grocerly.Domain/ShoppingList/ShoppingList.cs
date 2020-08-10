@@ -15,6 +15,7 @@ namespace Ncode.Grocerly.Domain
             Name = name;
             Items = new List<ShoppingListItem>();
             CreatedDateTime = createdDateTime;
+            FinishedDateTime = DateTime.MaxValue;
         }
 
         public ShoppingList(long id, long ownerId, ShoppingList shoppingList, DateTime createdDateTime)

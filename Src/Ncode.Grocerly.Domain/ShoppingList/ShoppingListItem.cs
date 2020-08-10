@@ -7,7 +7,7 @@ namespace Ncode.Grocerly.Domain
 {
     public class ShoppingListItem
     {
-        internal ShoppingListItem(Name name, UnitOfMeasure unitOfMeasure, int quantity)
+        public ShoppingListItem(Name name, UnitOfMeasure unitOfMeasure, int quantity)
         {
             Name = name;
             UnitOfMeasure = unitOfMeasure;

@@ -1,13 +1,16 @@
-﻿using Ncode.Grocerly.Application.Common;
+﻿using MediatR;
+using Ncode.Grocerly.Application.Common;
 using Ncode.Grocerly.Application.Exceptions;
 using Ncode.Grocerly.Common;
 using Ncode.Grocerly.Domain;
 using Ncode.Grocerly.Domain.Common;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Ncode.Grocerly.Application.Commands
 {
-    public class CreateShoppingList : ICommand<(string username, string shoppingListName)>
+    public class CreateShoppingList : IRequestHandler<CreateShoppingListRequest, ShoppingList>
     {
         private readonly IGrocerlyDbContext _dbContext;
 
@@ -22,9 +25,9 @@ namespace Ncode.Grocerly.Application.Commands
             _clock = clock;
         }
 
-        public void Handle((string username, string shoppingListName) parameters)
+        public Task<ShoppingList> Handle(CreateShoppingListRequest request, CancellationToken cancellationToken)
         {
-            var owner = _dbContext.Shoppers.FirstOrDefault(shopper => shopper.Username.Equals(parameters.username));
+            var owner = _dbContext.Shoppers.FirstOrDefault(shopper => shopper.Username.Equals(request.Username));
             if (owner is null)
             {
                 throw new UnregisteredShopperException();
@@ -32,10 +35,12 @@ namespace Ncode.Grocerly.Application.Commands
 
             var id = _idGenerator.CreateId();
             var createdDateTime = _clock.UtcNow;
-            var shoppingList = new ShoppingList(id, owner.Id, (Name)parameters.shoppingListName, createdDateTime);
+            var shoppingList = new ShoppingList(id, owner.Id, (Name)request.ShoppingListName, createdDateTime);
 
             _dbContext.ShoppingLists.Add(shoppingList);
             _dbContext.SaveChanges();
+
+            return Task.FromResult(shoppingList);
         }
     }
 }

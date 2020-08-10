@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
 {
-    public partial class InitialTableStructure : Migration
+    public partial class InitialTables : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,10 +28,8 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
                     Id = table.Column<long>(type: "bigint", nullable: false),
                     OwnerId = table.Column<long>(type: "bigint", nullable: false),
                     Name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
-                    IsCompleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDateTime = table.Column<DateTime>(type: "datetime", nullable: false),
                     FinishedDateTime = table.Column<DateTime>(type: "datetime", nullable: false),
-                    IsEmpty = table.Column<bool>(type: "bit", nullable: false),
                     Version = table.Column<byte[]>(rowVersion: true, nullable: true)
                 },
                 constraints: table =>

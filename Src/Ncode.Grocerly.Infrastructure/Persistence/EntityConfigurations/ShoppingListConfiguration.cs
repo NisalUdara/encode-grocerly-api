@@ -42,6 +42,8 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.EntityConfigurations
                 .IsRowVersion();
 
             builder.Ignore(s => s.HasAllItemsPicked);
+            builder.Ignore(s => s.IsEmpty);
+            builder.Ignore(s => s.IsCompleted);
         }
     }
 }

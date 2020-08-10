@@ -53,12 +53,6 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
                     b.Property<DateTime>("FinishedDateTime")
                         .HasColumnType("datetime");
 
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsEmpty")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("varchar(100)")

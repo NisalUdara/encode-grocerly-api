@@ -1,52 +1,64 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Ncode.Grocerly.Application.Commands;
+using Ncode.Grocerly.Application.Queries;
 using Ncode.Grocerly.Domain;
+using Ncode.Grocerly.RestApi.Authentication;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Ncode.Grocerly.RestApi.Controllers.v1
 {
+    [Authorize]
     [Route("api/v1/[controller]")]
     [ApiController]
     public class ShoppingListController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<ShoppingList> Get(string username)
+        private IMediator _mediator;
+
+        public ShoppingListController(IMediator mediator)
         {
-            throw new NotImplementedException();
+            _mediator = mediator;
         }
 
-        [Route("shared")]
         [HttpGet]
-        public IEnumerable<ShoppingList> GetSharedLists(string username)
+        public async Task<IActionResult> Get()
         {
-            throw new NotImplementedException();
+            var response = await _mediator.Send(new GetShoppingListsRequest() { Username = User.GetUsername() });
+            return Ok(response);
         }
 
         [HttpPost]
-        public void CreateShoppingList([FromBody] ShoppingList shoppingList)
+        public async Task<IActionResult> CreateShoppingList([FromBody] string shoppingListName)
         {
-            throw new NotImplementedException();
+            var response = await _mediator.Send(new CreateShoppingListRequest() { Username = User.GetUsername(), ShoppingListName = shoppingListName });
+            return Created("", response);
         }
 
         [Route("{shoppingListId}")]
         [HttpPost]
-        public void AddListItem(int shoppingListId, [FromBody]ShoppingListItem item)
+        public async Task<IActionResult> AddListItem(long shoppingListId, [FromBody]ShoppingListItem item)
         {
-            throw new NotImplementedException();
+            var response = await _mediator.Send(new AddShoppingListItemRequest() { Username = User.GetUsername(), ShoppingListId = shoppingListId, Item = item });
+            return Created("", item);
         }
 
-        [Route("{shoppingListId}/item/{id}")]
+        [Route("{shoppingListId}/item/{name}")]
         [HttpPut]
-        public void PickListItem(int shoppingListId, int id)
+        public async Task<IActionResult> PickListItem(long shoppingListId, string name)
         {
-            throw new NotImplementedException();
+            var response = await _mediator.Send(new PickShoppingListItemRequest() { Username = User.GetUsername(), ShoppingListId = shoppingListId, Name = name });
+            return Ok();
         }
 
-        [Route("{shoppingListId}/item/{id}")]
+        [Route("{shoppingListId}/item/{name}")]
         [HttpDelete]
-        public void DeleteListItem(int shoppingListId, int id)
+        public async Task<IActionResult> DeleteListItem(long shoppingListId, string name)
         {
-            throw new NotImplementedException();
+            var response = await _mediator.Send(new RemoveShoppingListItemRequest() { Username = User.GetUsername(), ShoppingListId = shoppingListId, Name = name });
+            return NoContent();
         }
     }
 }

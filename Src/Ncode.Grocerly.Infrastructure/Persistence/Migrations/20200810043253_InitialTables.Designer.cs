@@ -10,8 +10,8 @@ using Ncode.Grocerly.Infrastructure.Persistence;
 namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(GrocerlyDbContext))]
-    [Migration("20200809113145_InitialTableStructure")]
-    partial class InitialTableStructure
+    [Migration("20200810043253_InitialTables")]
+    partial class InitialTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,12 +54,6 @@ namespace Ncode.Grocerly.Infrastructure.Persistence.Migrations
 
                     b.Property<DateTime>("FinishedDateTime")
                         .HasColumnType("datetime");
-
-                    b.Property<bool>("IsCompleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsEmpty")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
